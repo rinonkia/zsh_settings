@@ -16,6 +16,6 @@ GIT_PS1_SHOWSTASHSTATE=true
 GIT_PS1_SHOWUPSTREAM=auto
 
 # プロンプトの表示設定(好きなようにカスタマイズ可)
-setopt PROMPT_SUBST ; PS1='%F{blue}$(__git_ps1 "(%s)")%f %F{yellow}%~%f
+setopt PROMPT_SUBST ; PS1='%F{white}$(__git_ps1 "(%s)")%f %F{yellow}%~%f
 %F{green}%n@%m%f: \$ '
 
