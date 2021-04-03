@@ -18,16 +18,21 @@ function g-brd() {
 
 function g-cmp() {
     REPO=`git remote -v | grep fetch | awk -F '[:. ]' '{print $3}'`
-    START=`git log --pretty=oneline | peco | awk '{print $1}'`
-    END=`git log --pretty=oneline | peco | awk '{print $1}'`
+    START=`git log --pretty=oneline | peco`
+    END=`git log --pretty=oneline | peco`
 
     if [[ -z $START || -z $END ]];then
         echo "canceled comparison."
         return
     fi
 
+    echo " from : $START"
+    echo " to   : $END"
+    START_COMMIT=`echo $START | awk '{print $1}'`
+    END_COMMIT=`echo $END | awk '{print $1}'`
+
     # 出力やコピーなど
-    URL="https://github.com/$REPO/compare/$START..$END"
+    URL="https://github.com/$REPO/compare/$START_COMMIT..$END_COMMIT"
     echo "[差分]($URL)" | pbcopy
     open $URL
 }
