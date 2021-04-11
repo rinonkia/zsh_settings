@@ -3,6 +3,7 @@
 function g-br() {
     BRANCH=`git branch | peco | tr -d ' '`
     if [[ -n "$BRANCH" ]]; then
+        echo "$BRANCH" | pbcopy
         git checkout $BRANCH
     fi
 }
