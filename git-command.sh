@@ -65,3 +65,12 @@ function gh-this() {
     open $URL
 }
 
+function gh-line() {
+
+    REPO=`git remote -v | grep fetch | awk -F '[:. ]' '{print $3}'`
+    BRANCH=`git branch --contains | awk -F '[ ]' '{print $2}'`
+    URL="https://github.com/$REPO/tree/$BRANCH"
+    echo $URL
+    open $URL
+
+}
