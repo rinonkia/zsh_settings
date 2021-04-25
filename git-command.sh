@@ -65,12 +65,28 @@ function gh-this() {
     open $URL
 }
 
-function gh-line() {
+# git grepで選択した箇所をgithubのレポジトリURLを表示
+function gg-line() {
+
+    if [[ -z $1 ]];then
+        echo "string arg is needed."
+        return
+    fi
 
     REPO=`git remote -v | grep fetch | awk -F '[:. ]' '{print $3}'`
-    BRANCH=`git branch --contains | awk -F '[ ]' '{print $2}'`
-    URL="https://github.com/$REPO/tree/$BRANCH"
-    echo $URL
-    open $URL
+    if [[ -n "$REPO" ]];then
+        BRANCH=`git branch --contains | awk -F '[ ]' '{print $2}'`
 
+        if [[ -z $BRANCH ]];then
+            BRANCH='master'
+        fi
+
+        PATHLINE=`git grep -nF $1 | peco | awk -F '[: ]' '{print $1"#L"$2}'`
+        if [[ -z $PATHLINE ]];then
+            return
+        fi
+
+        URL="https://github.com/$REPO/blob/$BRANCH/$PATHLINE"
+        echo $URL && open $URL
+    fi
 }
