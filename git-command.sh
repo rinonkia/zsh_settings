@@ -59,7 +59,7 @@ function gh-this() {
         return
     fi
 
-    URL="https://github.com/$REPO/"
+    URL="https://github.com/$REPO/$1"
 
     echo $URL
     open $URL
